@@ -1,17 +1,26 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import status, generics
+
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .models import (Vendor, PurchaseOrder)
 from .serializers import (VendorSerializer, PurchaseOrderSerializer)
 
 
 class VendorReadCreate(generics.ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
 
 
 class VendorFilterUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
 
@@ -19,16 +28,25 @@ class VendorFilterUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
 
 
 class PurchaseOrderReadCreate(generics.ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
 
 class PurchaseOrderFilterUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
 
 
 
 class Performance(generics.RetrieveAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
 
@@ -43,6 +61,9 @@ class Performance(generics.RetrieveAPIView):
 
 
 class AcknowledgeOrder(generics.UpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
 
